@@ -1,0 +1,27 @@
+from vpython import *
+scene=canvas()
+import numpy as np
+
+t0=0.0
+tfinal=100
+dt=0.01
+rou,beta=10.0,8.0/3.0
+T=np.arange(t0,tfinal,0.01)
+x0,y0,z0=-1.0,-1,0
+lorenz= curve(pos=(x0,y0,z0),color=color.yellow)
+for t in T:
+    a=x0+28*(y0-x0)*dt
+    
+    b=y0+(x0*(rou-z0)-y0)*dt
+    
+    c=z0+(x0*y0-beta*z0)*dt
+    
+    x=x0+(28*(y0-x0)+28*(b-a))*dt/2
+    y=y0+(x0*(rou-z0)-y0+a*(rou-c)-b)*dt/2
+    z=z0+(x0*y0-beta*z0+a*b-beta*c)*dt/2
+    v=(x,y,z)
+    lorenz.append(pos=v)
+    x0=x
+    y0=y
+    z0=z
+    rate(30)
